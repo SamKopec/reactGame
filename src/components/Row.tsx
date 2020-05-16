@@ -26,8 +26,8 @@ const Row = (props: rowProps) => {
 			<Square
 				key={index}
 				hero={props.hero}
-				xIndex={props.rowIndex}
-				yIndex={index}
+				yIndex={props.rowIndex}
+				xIndex={index}
 			/>
 		);
 	});
