@@ -1,48 +1,28 @@
 import React, { Component } from "react";
+import Row from "./Row.tsx";
 import "./Board.css";
 
-type squareProps = {
-	hero: boolean;
-};
-
-const Square = (props: squareProps) => {
-	let classList = "square";
-	if (props.hero) {
-		classList = "square hero";
-	}
-	return <div className={classList}></div>;
-};
-
-type rowProps = {
-	heroX: number | null;
-};
-
-const Row = (props: rowProps) => {
-	let heroInRow: boolean;
-	if (props.heroX) {
-		heroInRow = true;
-	}
-	const foo = [1, 2, 3, 4, 5, 6];
-	const row = foo.map((value, index) => {
-		let hero = false;
-		if (props.heroX === index) {
-			hero = true;
-		}
-		return <Square hero={hero} />;
-	});
-	return <div className="row">{row}</div>;
+type State = {
+	hero: number[];
+	gridDimensions: number[];
 };
 
 class Board extends Component {
+	state: State = {
+		hero: [2, 4],
+		gridDimensions: [6, 6]
+	};
+
 	render() {
-		const heroLocation = [2, 4];
-		const foo2 = [1, 2, 3, 4, 5, 6];
-		const grid = foo2.map((row, index) => {
-			let heroX = null;
-			if (index === heroLocation[1]) {
-				heroX = heroLocation[0];
-			}
-			return <Row heroX={heroX} />;
+		const grid = [...Array(this.state.gridDimensions[1])].map((row, index) => {
+			return (
+				<Row
+					width={this.state.gridDimensions[0]}
+					key={index}
+					rowIndex={index}
+					hero={this.state.hero}
+				/>
+			);
 		});
 		return <div className="board">{grid}</div>;
 	}
